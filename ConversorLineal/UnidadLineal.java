@@ -2,7 +2,7 @@ package ConversorLineal;
 
 import Abstract.Unidad;
 
-public class UnidadLineal extends Unidad {
+public class UnidadLineal implements Unidad {
     private String nombre;
     private int identificador;
 
