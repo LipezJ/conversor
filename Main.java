@@ -1,17 +1,25 @@
-import Abstract.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Function;
+
+import Utilidades.*;
 import ConversorLineal.*;
+import ConversorNoLineal.*;
 
 public class Main {
     public static void main(String[] args) {
 
         Unidades monedas = inicializarMonedas();
         Unidades logitudes = inicializarLongitudes();
+        UnidadesNoLineales temperatura = inicializarTemperaturas();
 
-        double cambio1 = monedas.cambiar("EUR", "USD", 2);
-        double cambio2 = logitudes.cambiar("metro", "kilometro", 1);
+        double cambio1 = monedas.cambiar("EUR", "USD", 5.89);
+        double cambio2 = logitudes.cambiar("metro", "kilometro", 23);
+        double cambio3 = temperatura.cambiar("Celsius", "Fahrenheit", 15);
 
         System.out.println(cambio1);
         System.out.println(cambio2);
+        System.out.println(cambio3);
 
     }
     public static Unidades inicializarMonedas() {
@@ -31,5 +39,12 @@ public class Main {
         fisica.agregarUnidad("milla", new Double[]{1609.339999, 5279.98687, 1.60934});
         fisica.agregarUnidad("yarda", new Double[]{0.914397, 2.999992, 0.000914, 0.0005681});
         return fisica;
+    }
+    public static UnidadesNoLineales inicializarTemperaturas() {
+        UnidadesNoLineales temperatura = new UnidadesNoLineales();
+        temperatura.agregarUnidad("Celsius", new ArrayList<Function<Double, Double>>(), new ArrayList<Function<Double, Double>>(Arrays.asList()));
+        temperatura.agregarUnidad("Kelvin", new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> valor - 273.15)), new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> valor + 273.15)));
+        temperatura.agregarUnidad("Fahrenheit", new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> (valor - 32) * 5/9, valor -> (valor - 32) * 5/9 + 273.15)), new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> (valor * 9/5) + 32, valor -> (valor - 273.15) * 9/5 + 32)));
+        return temperatura;
     }
 }

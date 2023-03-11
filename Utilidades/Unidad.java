@@ -1,12 +1,10 @@
-package ConversorLineal;
+package Utilidades;
 
-import Abstract.Unidad;
-
-public class UnidadLineal implements Unidad {
+public class Unidad {
     private String nombre;
     private int identificador;
 
-    public UnidadLineal(String nombre, int identificador) {
+    public Unidad(String nombre, int identificador) {
         this.nombre = nombre;
         this.identificador = identificador;
     }
