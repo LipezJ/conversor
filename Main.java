@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
 
-import Utilidades.*;
-import ConversorLineal.*;
-import ConversorNoLineal.*;
+import Utilidades.Unidades;
+import ConversorLineal.UnidadesLineales;
+import ConversorNoLineal.UnidadesNoLineales;
 
 public class Main {
     public static void main(String[] args) {

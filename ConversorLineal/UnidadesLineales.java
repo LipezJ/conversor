@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
-import Utilidades.*;
+import Utilidades.Unidades;
 import Utilidades.Unidad;
+import Utilidades.Tasas;
 
 public class UnidadesLineales implements Unidades {
     private Map<String, Unidad> unidades = new HashMap<String, Unidad>();
