@@ -62,8 +62,13 @@ public class Interfaz extends JFrame implements ActionListener {
             repaint();
         } else if (e.getSource() == convertirButton || e.getSource() == valorTextField) {
             Unidades unidades = conversores.getUnidades();
-            double cambio = unidades.cambiar(unidadesComboOrigen.getSelectedItem().toString(), unidadesComboDestino.getSelectedItem().toString(), (double) Double.parseDouble(valorTextField.getText()));
-            JOptionPane.showMessageDialog(null, cambio);
+            try {
+                double cambio = unidades.cambiar(unidadesComboOrigen.getSelectedItem().toString(), unidadesComboDestino.getSelectedItem().toString(), (double) Double.parseDouble(valorTextField.getText()));
+                JOptionPane.showMessageDialog(null, cambio);
+            } catch (java.lang.NumberFormatException num) {
+                valorTextField.setText("");
+                JOptionPane.showMessageDialog(null, "Solo ingrese Numeros");
+            }
         }
     }
 }
