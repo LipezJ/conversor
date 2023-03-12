@@ -28,7 +28,10 @@ public class UnidadesLineales implements Unidades {
         return cantidad * tasa;
     }
 
-    public Set<String> getUnidades(){
-        return this.unidades.keySet();
+    public String[] getUnidades(){
+        Set<String> unidadesSet = this.unidades.keySet();
+        String[] unidadesArray = new String[unidadesSet.size()];
+        unidadesSet.toArray(unidadesArray);
+        return unidadesArray;
     }
 }

@@ -1,9 +1,11 @@
 package Utilidades;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.function.Function;
 
 public interface Unidades {
-    void agregarUnidad(String nombre, Double[] tasas);
+    default void agregarUnidad(String nombre, Double[] tasas){};
+    default void agregarUnidadN(String nombre, ArrayList<Function<Double, Double>> tasas, ArrayList<Function<Double, Double>> nuevasInversas){};
     double cambiar(String origen, String destino, double cantidad);
-    Set<String> getUnidades();
+    String[] getUnidades();
 }

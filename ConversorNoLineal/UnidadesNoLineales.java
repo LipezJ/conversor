@@ -7,15 +7,15 @@ import java.util.Set;
 import java.util.function.Function;
 
 import Utilidades.Unidad;
+import Utilidades.Unidades;
 
-public class UnidadesNoLineales {
+public class UnidadesNoLineales implements Unidades {
     private Map<String, Unidad> unidades = new HashMap<String, Unidad>();
     private FuncionesNoLineales tasas = new FuncionesNoLineales();
 
-    public boolean agregarUnidad(String nombre, ArrayList<Function<Double, Double>> tasas, ArrayList<Function<Double, Double>> nuevasInversas) {
+    public void agregarUnidadN(String nombre, ArrayList<Function<Double, Double>> tasas, ArrayList<Function<Double, Double>> nuevasInversas) {
         this.unidades.put(nombre, new Unidad(nombre, this.tasas.getSize()));
         this.tasas.setTasas(tasas, nuevasInversas);
-        return true;
     }
 
     public double cambiar(String origen, String destino, double cantidad) {
@@ -28,7 +28,10 @@ public class UnidadesNoLineales {
         return function.apply(cantidad);
     }
 
-    public Set<String> getUnidades(){
-        return this.unidades.keySet();
+    public String[] getUnidades(){
+        Set<String> unidadesSet = this.unidades.keySet();
+        String[] unidadesArray = new String[unidadesSet.size()];
+        unidadesSet.toArray(unidadesArray);
+        return unidadesArray;
     }
 }

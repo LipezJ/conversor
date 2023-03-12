@@ -3,23 +3,23 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 import Utilidades.Unidades;
+import Utilidades.ListaConversores;
 import ConversorLineal.UnidadesLineales;
 import ConversorNoLineal.UnidadesNoLineales;
+import Interfaz.Interfaz;
 
 public class Main {
     public static void main(String[] args) {
 
-        Unidades monedas = inicializarMonedas();
-        Unidades logitudes = inicializarLongitudes();
-        UnidadesNoLineales temperatura = inicializarTemperaturas();
+        ListaConversores conversores = new ListaConversores(new Unidades[] { 
+            inicializarMonedas(),
+            inicializarTemperaturas(), 
+            inicializarLongitudes() 
+            },
+            new String[] { "Monedas", "Temperaturas", "Logitudes" });
 
-        double cambio1 = monedas.cambiar("EUR", "USD", 5.89);
-        double cambio2 = logitudes.cambiar("metro", "kilometro", 23);
-        double cambio3 = temperatura.cambiar("Celsius", "Fahrenheit", 15);
-
-        System.out.println(cambio1);
-        System.out.println(cambio2);
-        System.out.println(cambio3);
+        Interfaz interfaz = new Interfaz(conversores);
+        interfaz.setVisible(true);
 
     }
     public static Unidades inicializarMonedas() {
@@ -42,9 +42,9 @@ public class Main {
     }
     public static UnidadesNoLineales inicializarTemperaturas() {
         UnidadesNoLineales temperatura = new UnidadesNoLineales();
-        temperatura.agregarUnidad("Celsius", new ArrayList<Function<Double, Double>>(), new ArrayList<Function<Double, Double>>(Arrays.asList()));
-        temperatura.agregarUnidad("Kelvin", new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> valor - 273.15)), new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> valor + 273.15)));
-        temperatura.agregarUnidad("Fahrenheit", new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> (valor - 32) * 5/9, valor -> (valor - 32) * 5/9 + 273.15)), new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> (valor * 9/5) + 32, valor -> (valor - 273.15) * 9/5 + 32)));
+        temperatura.agregarUnidadN("Celsius", new ArrayList<Function<Double, Double>>(), new ArrayList<Function<Double, Double>>(Arrays.asList()));
+        temperatura.agregarUnidadN("Kelvin", new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> valor - 273.15)), new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> valor + 273.15)));
+        temperatura.agregarUnidadN("Fahrenheit", new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> (valor - 32) * 5/9, valor -> (valor - 32) * 5/9 + 273.15)), new ArrayList<Function<Double, Double>>(Arrays.asList(valor -> (valor * 9/5) + 32, valor -> (valor - 273.15) * 9/5 + 32)));
         return temperatura;
     }
 }
