@@ -1,2 +1,4 @@
 *.class
 tasas.jpeg
+.vscode
+/bin
