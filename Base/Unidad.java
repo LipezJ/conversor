@@ -1,4 +1,4 @@
-package Utilidades;
+package Base;
 
 public class Unidad {
     private String nombre;

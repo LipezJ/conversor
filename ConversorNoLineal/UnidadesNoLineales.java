@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-import Utilidades.Unidad;
-import Utilidades.Unidades;
+import Base.Unidad;
+import Base.Unidades;
 
 public class UnidadesNoLineales implements Unidades {
     private Map<String, Unidad> unidades = new HashMap<String, Unidad>();

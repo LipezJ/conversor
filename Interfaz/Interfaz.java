@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import Utilidades.ListaConversores;
-import Utilidades.Unidades;
+import Base.Unidades;
 
 public class Interfaz extends JFrame implements ActionListener {
 
@@ -26,8 +26,8 @@ public class Interfaz extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        unidadesComboOrigen = new JComboBox<>(conversores.getUnidades().getUnidades());
-        unidadesComboDestino = new JComboBox<>(conversores.getUnidades().getUnidades());
+        unidadesComboOrigen = new JComboBox<>(conversores.getConversor().getUnidades());
+        unidadesComboDestino = new JComboBox<>(conversores.getConversor().getUnidades());
         unidadesLabel = new JLabel("Monedas");
         valorLabel = new JLabel("Valor");
         valorTextField = new JTextField(10);
@@ -55,13 +55,13 @@ public class Interfaz extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == unidadButton) {
             conversores.siguiente();
-            Unidades unidades = conversores.getUnidades();
+            Unidades unidades = conversores.getConversor();
             unidadesLabel.setText(conversores.getNombreActual());
             unidadesComboOrigen.setModel(new DefaultComboBoxModel<>(unidades.getUnidades()));
             unidadesComboDestino.setModel(new DefaultComboBoxModel<>(unidades.getUnidades()));
             repaint();
         } else if (e.getSource() == convertirButton || e.getSource() == valorTextField) {
-            Unidades unidades = conversores.getUnidades();
+            Unidades unidades = conversores.getConversor();
             try {
                 double cambio = unidades.cambiar(unidadesComboOrigen.getSelectedItem().toString(), unidadesComboDestino.getSelectedItem().toString(), (double) Double.parseDouble(valorTextField.getText()));
                 JOptionPane.showMessageDialog(null, cambio);

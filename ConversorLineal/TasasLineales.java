@@ -1,8 +1,8 @@
 package ConversorLineal;
 
 import java.util.ArrayList;
-import Utilidades.Tasas;
-import Utilidades.Unidad;
+import Base.Tasas;
+import Base.Unidad;
 
 public class TasasLineales implements Tasas {
     private ArrayList<ArrayList<Double>> tasas = new ArrayList<ArrayList<Double>>();

@@ -1,6 +1,6 @@
 package ConversorNoLineal;
 
-import Utilidades.Unidad;
+import Base.Unidad;
 import java.util.ArrayList;
 import java.util.function.Function;
 
