@@ -1,4 +1,4 @@
 *.class
 tasas.jpeg
 .vscode
-/temp/*
+/build/*
