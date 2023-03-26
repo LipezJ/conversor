@@ -22,6 +22,7 @@ public class Interfaz extends JFrame implements ActionListener {
         this.conversores = conversores;
 
         JPanel principal = new JPanel();
+        JPanel conversorPrinipalPanel = new JPanel();
         JPanel conversorPanel = new JPanel();
         JPanel tituloPanel = new JPanel();
         JPanel unidadesPanel = new JPanel();
@@ -29,12 +30,13 @@ public class Interfaz extends JFrame implements ActionListener {
         JPanel convertirPanel = new JPanel();
         JPanel listaConversoresPanel = new JPanel();
 
-        principal.setLayout(new BoxLayout(principal, BoxLayout.X_AXIS));
+        principal.setLayout(new BoxLayout(principal, BoxLayout.Y_AXIS));
+        conversorPrinipalPanel.setLayout(new BoxLayout(conversorPrinipalPanel, BoxLayout.X_AXIS));
         conversorPanel.setLayout(new BoxLayout(conversorPanel, BoxLayout.Y_AXIS));
         listaConversoresPanel.setLayout(new BoxLayout(listaConversoresPanel, BoxLayout.Y_AXIS));
 
         setTitle("Conversor de unidades");
-        setSize(600, 300);
+        setSize(500, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -73,13 +75,15 @@ public class Interfaz extends JFrame implements ActionListener {
         }
         listaConversoresPanel.add(unidadButton);
 
-        conversorPanel.add(tituloPanel);
         conversorPanel.add(unidadesPanel);
         conversorPanel.add(valorPanel);
         conversorPanel.add(convertirPanel);
 
-        principal.add(conversorPanel);
-        principal.add(listaConversoresPanel);
+        conversorPrinipalPanel.add(conversorPanel);
+        conversorPrinipalPanel.add(listaConversoresPanel);
+
+        principal.add(tituloPanel);
+        principal.add(conversorPrinipalPanel);
 
         add(principal);
     }
@@ -103,8 +107,13 @@ public class Interfaz extends JFrame implements ActionListener {
         } else if (e.getSource() == convertirButton || e.getSource() == valorTextField) {
             Unidades unidades = conversores.getConversor();
             try {
-                double cambio = unidades.cambiar(unidadesComboOrigen.getSelectedItem().toString(), unidadesComboDestino.getSelectedItem().toString(), (double) Double.parseDouble(valorTextField.getText()));
-                JOptionPane.showMessageDialog(null, cambio);
+                double cambio = unidades.cambiar(unidadesComboOrigen.getSelectedItem().toString(),
+                        unidadesComboDestino.getSelectedItem().toString(),
+                        (double) Double.parseDouble(valorTextField.getText()));
+                String mensaje = String.format("%.2f %s son %.2f %s", Double.parseDouble(valorTextField.getText()),
+                        unidadesComboOrigen.getSelectedItem().toString(), cambio,
+                        unidadesComboDestino.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, mensaje);
             } catch (java.lang.NumberFormatException num) {
                 valorTextField.setText("");
                 JOptionPane.showMessageDialog(null, "Solo ingrese Numeros");
