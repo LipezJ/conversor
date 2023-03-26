@@ -9,7 +9,7 @@ import Base.Unidades;
 
 public class Inicializar {
 
-    public static String[] nombres = { "Monedas", "Temperaturas", "Logitudes" };
+    public static String[] nombres = { "Monedas", "Logitudes", "Temperaturas"};
 
     public static ArrayList<Unidades> inicializarUnidades() {
         return new ArrayList<Unidades>(Arrays.asList(monedas(), longitudes(), temperaturas()));

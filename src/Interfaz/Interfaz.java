@@ -2,6 +2,7 @@ package Interfaz;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import Utilidades.ListaConversores;
 import Base.Unidades;
@@ -13,6 +14,7 @@ public class Interfaz extends JFrame implements ActionListener {
     private JTextField valorTextField;
     private JButton convertirButton, unidadButton, intercambiarButton;
     private ListaConversores conversores;
+    private ArrayList<JButton> listaConversores = new ArrayList<JButton>();
 
     public Interfaz(ListaConversores conversores) {
         setLayout(new FlowLayout());
@@ -20,9 +22,19 @@ public class Interfaz extends JFrame implements ActionListener {
         this.conversores = conversores;
 
         JPanel principal = new JPanel();
+        JPanel conversorPanel = new JPanel();
+        JPanel tituloPanel = new JPanel();
+        JPanel unidadesPanel = new JPanel();
+        JPanel valorPanel = new JPanel();
+        JPanel convertirPanel = new JPanel();
+        JPanel listaConversoresPanel = new JPanel();
+
+        principal.setLayout(new BoxLayout(principal, BoxLayout.X_AXIS));
+        conversorPanel.setLayout(new BoxLayout(conversorPanel, BoxLayout.Y_AXIS));
+        listaConversoresPanel.setLayout(new BoxLayout(listaConversoresPanel, BoxLayout.Y_AXIS));
 
         setTitle("Conversor de unidades");
-        setSize(800, 150);
+        setSize(600, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -33,33 +45,57 @@ public class Interfaz extends JFrame implements ActionListener {
         valorTextField = new JTextField(10);
         convertirButton = new JButton("Convertir");
         unidadButton = new JButton("Cambiar Conversor");
-        intercambiarButton = new JButton("<->");
+        intercambiarButton = new JButton("\uf362");
+        for (int i = 0; i < conversores.getNombres().size(); i++) {
+            this.listaConversores.add(new JButton(conversores.getNombres().get(i)));
+        }
 
         convertirButton.addActionListener(this);
         unidadButton.addActionListener(this);
         valorTextField.addActionListener(this);
         intercambiarButton.addActionListener(this);
+        for (int i = 0; i < listaConversores.size(); i++) {
+            this.listaConversores.get(i).addActionListener(this);
+        }
 
         unidadesComboDestino.setSelectedIndex(1);
 
-        principal.add(unidadesComboOrigen);
-        principal.add(intercambiarButton);
-        principal.add(unidadesComboDestino);
-        principal.add(unidadesLabel);
-        principal.add(valorLabel);
-        principal.add(valorTextField);
-        principal.add(convertirButton);
-        principal.add(unidadButton);
+        tituloPanel.add(unidadesLabel);
+        unidadesPanel.add(unidadesComboOrigen); 
+        unidadesPanel.add(intercambiarButton);
+        unidadesPanel.add(unidadesComboDestino);
+        valorPanel.add(valorLabel);
+        valorPanel.add(valorTextField);
+        convertirPanel.add(convertirButton);
+
+        for (int i = 0; i < listaConversores.size(); i++) {
+            listaConversoresPanel.add(listaConversores.get(i));
+        }
+        listaConversoresPanel.add(unidadButton);
+
+        conversorPanel.add(tituloPanel);
+        conversorPanel.add(unidadesPanel);
+        conversorPanel.add(valorPanel);
+        conversorPanel.add(convertirPanel);
+
+        principal.add(conversorPanel);
+        principal.add(listaConversoresPanel);
 
         add(principal);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == unidadButton) {
-            conversores.siguiente();
-            Unidades unidades = conversores.getConversor();
-            unidadesLabel.setText(conversores.getNombreActual());
+        if (e.getSource() == unidadButton || this.listaConversores.indexOf(e.getSource()) != -1) {
+            Unidades unidades;
+            if (this.listaConversores.indexOf(e.getSource()) != -1) {
+                unidades = this.conversores.getConversor(e.getActionCommand());
+                unidadesLabel.setText(e.getActionCommand());
+            } else {
+                conversores.siguiente();
+                unidades = conversores.getConversor();
+                unidadesLabel.setText(conversores.getNombreActual());
+            }
             unidadesComboOrigen.setModel(new DefaultComboBoxModel<>(unidades.getUnidades()));
             unidadesComboDestino.setModel(new DefaultComboBoxModel<>(unidades.getUnidades()));
             unidadesComboOrigen.setSelectedIndex(1);
